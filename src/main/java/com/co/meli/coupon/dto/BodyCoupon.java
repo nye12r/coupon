@@ -19,5 +19,5 @@ public class BodyCoupon {
   private List<String> itemIDS;
 
   @NotNull(message = "El Valor del cupon no puede ser vacio")
-  private Float amount;
+  private Double amount;
 }
