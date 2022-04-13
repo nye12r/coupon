@@ -18,19 +18,19 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin(origins = "*")
 public class CouponController {
-  private final CouponService couponService;
+    private final CouponService couponService;
 
-  public CouponController(CouponService couponService) {
-    this.couponService = couponService;
-  }
+    public CouponController(CouponService couponService) {
+        this.couponService = couponService;
+    }
 
-  @PostMapping(
-          value = "/coupon/",
-          consumes = MediaType.APPLICATION_JSON_VALUE,
-          produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<BodyCoupon> getListItemsPurchasedWithCoupon(
-          @RequestBody @Valid BodyCoupon requestCoupon) {
-    requestCoupon=couponService.getListItemsPurchasedWithCoupon(requestCoupon);
-    return new ResponseEntity<>(requestCoupon, HttpStatus.OK);
-  }
+    @PostMapping(
+            value = "/coupon/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BodyCoupon> getListItemsPurchasedWithCoupon(
+            @RequestBody @Valid BodyCoupon requestCoupon) {
+        requestCoupon = couponService.getListItemsPurchasedWithCoupon(requestCoupon);
+        return new ResponseEntity<>(requestCoupon, HttpStatus.OK);
+    }
 }

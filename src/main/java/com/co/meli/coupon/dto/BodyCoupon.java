@@ -13,11 +13,11 @@ import java.util.List;
 @Setter
 @Builder
 public class BodyCoupon {
-  @JsonProperty("item_ids")
-  @NotNull(message = "La Lista de Items no puede ser vacia")
-  @NotEmpty(message = "La Lista de Items no puede ser vacia")
-  private List<String> itemIDS;
+    @JsonProperty("item_ids")
+    @NotNull(message = "La Lista de Items no puede ser vacia")
+    @NotEmpty(message = "La Lista de Items no puede ser vacia")
+    private List<String> itemIDS;
 
-  @NotNull(message = "El Valor del cupon no puede ser vacio")
-  private Double amount;
+    @NotNull(message = "El Valor del cupon no puede ser vacio")
+    private Double amount;
 }
