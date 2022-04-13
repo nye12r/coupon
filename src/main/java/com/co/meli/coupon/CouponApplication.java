@@ -1,4 +1,4 @@
-package com.co.meli.coupon.infrastructure;
+package com.co.meli.coupon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
