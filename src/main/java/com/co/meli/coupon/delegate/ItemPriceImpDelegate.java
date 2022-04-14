@@ -22,11 +22,11 @@ public class ItemPriceImpDelegate implements ItemPriceDelegate {
         String url = String.format(URL, idItem);
         try {
             entity = restTemplate.getForEntity(url, String.class);
+            JSONObject json = new JSONObject(entity.getBody());
+            return json.getFloat("price");
         } catch (Exception e) {
             log.info(e.getMessage());
             return null;
         }
-        JSONObject json = new JSONObject(entity.getBody());
-        return json.getFloat("price");
     }
 }

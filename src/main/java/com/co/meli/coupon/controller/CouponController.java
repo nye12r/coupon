@@ -3,7 +3,6 @@ package com.co.meli.coupon.controller;
 import com.co.meli.coupon.dto.BodyCoupon;
 import com.co.meli.coupon.service.CouponService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +29,7 @@ public class CouponController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BodyCoupon> getListItemsPurchasedWithCoupon(
             @RequestBody @Valid BodyCoupon requestCoupon) {
-        requestCoupon = couponService.getListItemsPurchasedWithCoupon(requestCoupon);
-        return new ResponseEntity<>(requestCoupon, HttpStatus.OK);
+        return couponService.getListItemsPurchasedWithCoupon(requestCoupon);
+
     }
 }
