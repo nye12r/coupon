@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -28,7 +25,7 @@ public class CouponServiceImp implements CouponService {
 
     @Override
     public ResponseEntity<BodyCoupon> getListItemsPurchasedWithCoupon(BodyCoupon requestCoupon) {
-        Map<String, Float> items = new HashMap<>();
+        Map<String, Float> items = new HashMap<>( );
         List<String> itemIDS = requestCoupon.getItemIDS();
         for (String itemID : itemIDS) {
             Float itemPrice = itemPriceImpDelegate.getItemPriceItem(itemID);
@@ -42,6 +39,23 @@ public class CouponServiceImp implements CouponService {
             throw new ResponseStatusException(NOT_FOUND, ITEMS_NOT_FOUND);
         }
         List<String> item = calculate(items, requestCoupon.getAmount());
+        Map<String, Float> itemsCopy = new HashMap<>(items);
+        Map<Float, List<String>> aux = new HashMap<>();
+        items.forEach((key, value) -> {
+            List<String> item1 = calculate(itemsCopy, requestCoupon.getAmount());
+            final Float[] total1 = {(float) 0};
+            item.forEach(y -> {
+                total1[0] = total1[0] + items.get(y);
+            });
+            aux.put(total1[0],item1);
+            itemsCopy.remove(key);
+        });
+        Float maxValueInMap=(Collections.max(aux.keySet()));
+        List<String> item1 =aux.get(maxValueInMap);
+        System.out.println("VALOR TOTAL");
+        System.out.println(maxValueInMap);
+        System.out.println("ITEMS NUEVA LISTA");
+        item1.forEach(System.out::println);
         System.out.println("LISTA DE ITEMS");
         System.out.println(item);
         final float[] total = {0};
