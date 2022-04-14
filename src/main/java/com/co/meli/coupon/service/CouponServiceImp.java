@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Slf4j
 @Service("CouponServiceImp")
@@ -18,13 +20,16 @@ public class CouponServiceImp implements CouponService {
 
     @Override
     public BodyCoupon getListItemsPurchasedWithCoupon(BodyCoupon requestCoupon) {
+        Map<String, Float> items = new TreeMap<>();
         List<String> itemIDS = requestCoupon.getItemIDS();
         for (String itemID : itemIDS) {
-            Double itemPriceItem = itemPriceImpDelegate.getItemPriceItem(itemID);
+            Float itemPrice = itemPriceImpDelegate.getItemPriceItem(itemID);
+            if (itemPrice !=null){
+                if(itemPrice<requestCoupon.getAmount())
+                items.put(itemID,itemPrice);
+            }
         }
-
-        Double pr = requestCoupon.getAmount() * 100;
-        requestCoupon.setAmount(pr);
+        log.info(String.valueOf(items));
         return (requestCoupon);
     }
 }

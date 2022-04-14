@@ -17,7 +17,7 @@ public class ItemPriceImpDelegate implements ItemPriceDelegate {
     }
 
     @Override
-    public Double getItemPriceItem(String idItem) {
+    public Float getItemPriceItem(String idItem) {
         ResponseEntity<String> entity;
         String url = String.format(URL, idItem);
         try {
@@ -27,8 +27,6 @@ public class ItemPriceImpDelegate implements ItemPriceDelegate {
             return null;
         }
         JSONObject json = new JSONObject(entity.getBody());
-        Double price = json.getDouble("price");
-        log.debug("holder" + price);
-        return price;
+        return json.getFloat("price");
     }
 }
