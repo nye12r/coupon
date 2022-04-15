@@ -66,25 +66,28 @@ public class CouponServiceImp implements CouponService {
     }
 
     private List<String> calculate(Map<String, Float> items, Float amount) {
+        Map<String, Float> itemProducts = sortedMap(items);
         List<String> itemFilter = new ArrayList<>();
-        final float[] valorAux = {0};
-        items.entrySet().stream().filter(x -> {
-            float v = x.getValue() + valorAux[0];
+        final int[] valorAux = {0};
+        itemProducts.entrySet().stream().filter(x -> {
+            System.out.println("VALOR DEL MAPA ORDENADO: "+ x.getValue());
+            int v = (int) (x.getValue() + valorAux[0]);
             if (v <= amount) {
-                System.out.println("Numero del item: " + x.getKey());
-                System.out.println("Valor item: " + x.getValue());
-                System.out.println("Valor acumulador: " + valorAux[0]);
-                System.out.println("Valor cupon: " + amount);
-                System.out.println("Valor Resta: " + (amount-valorAux[0]));
                 valorAux[0] = v;
                 itemFilter.add(x.getKey());
                 return true;
             }
             return false;
         }).forEach(System.out::println);
-        //return new ArrayList<>(items.keySet());
-        items.entrySet().forEach(System.out::println);
+        itemProducts.entrySet().forEach(System.out::println);
         return itemFilter;
+    }
+
+    public static Map < String, Float > sortedMap ( final Map < String, Float > items ) {
+        return items.entrySet ( )
+                .stream ( )
+                .sorted ( Map.Entry. < String, Float > comparingByValue ( ) )
+                .collect ( Collectors.toMap ( Map.Entry::getKey, Map.Entry::getValue, ( e1, e2 ) -> e1, LinkedHashMap::new ) );
     }
 
 }
