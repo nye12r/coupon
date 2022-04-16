@@ -1,6 +1,7 @@
 package com.co.meli.coupon.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class BodyCoupon {
     @JsonProperty("item_ids")
     @NotNull(message = "La Lista de Items no puede ser vacia")
     @NotEmpty(message = "La Lista de Items no puede ser vacia")
+    @SerializedName("item_ids")
     private List<String> itemIDS;
 
     @NotNull(message = "El Valor del cupon no puede ser vacio")

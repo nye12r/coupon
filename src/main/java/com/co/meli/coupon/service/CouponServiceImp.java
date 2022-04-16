@@ -23,7 +23,7 @@ public class CouponServiceImp implements CouponService {
         this.itemPriceImpDelegate = itemPriceImpDelegate;
     }
 
-    public static Map<String, Float> sortedMap(final Map<String, Float> items) {
+    private static Map<String, Float> sortedMap(final Map<String, Float> items) {
         return items.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Float>comparingByValue())
@@ -59,12 +59,7 @@ public class CouponServiceImp implements CouponService {
         });
         Float maxValueInMap = (Collections.max(aux.keySet()));
         List<String> item1 = aux.get(maxValueInMap);
-        System.out.println("VALOR TOTAL");
-        System.out.println(maxValueInMap);
-        System.out.println("ITEMS NUEVA LISTA");
         item1.forEach(System.out::println);
-        System.out.println("LISTA DE ITEMS");
-        System.out.println(item);
         final float[] total = {0};
         item.forEach(x -> {
             total[0] = total[0] + items.get(x);
@@ -77,7 +72,6 @@ public class CouponServiceImp implements CouponService {
         List<String> itemFilter = new ArrayList<>();
         final int[] valorAux = {0};
         itemProducts.entrySet().stream().filter(x -> {
-            System.out.println("VALOR DEL MAPA ORDENADO: " + x.getValue());
             int v = (int) (x.getValue() + valorAux[0]);
             if (v <= amount) {
                 valorAux[0] = v;

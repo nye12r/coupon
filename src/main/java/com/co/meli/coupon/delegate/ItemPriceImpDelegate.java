@@ -2,6 +2,7 @@ package com.co.meli.coupon.delegate;
 
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,12 +10,9 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service("ItemPriceImpDelegate")
 public class ItemPriceImpDelegate implements ItemPriceDelegate {
-    private final RestTemplate restTemplate;
     private final String URL = "https://api.mercadolibre.com/items/%s";
-
-    public ItemPriceImpDelegate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public Float getItemPriceItem(String idItem) {

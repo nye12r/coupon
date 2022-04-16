@@ -61,10 +61,10 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-               // minimum = 0.05
+                minimum = 0.85
             }
             excludes = [
-                    // 'co.com.adl.pb.bocc.transfers.model.*',
+                    'com.co.meli.coupon.dto.*',
                     ' com.co.meli.coupon.CouponApplication'
             ]
         }
