@@ -23,9 +23,16 @@ public class CouponServiceImp implements CouponService {
         this.itemPriceImpDelegate = itemPriceImpDelegate;
     }
 
+    public static Map<String, Float> sortedMap(final Map<String, Float> items) {
+        return items.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Float>comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
     @Override
     public ResponseEntity<BodyCoupon> getListItemsPurchasedWithCoupon(BodyCoupon requestCoupon) {
-        Map<String, Float> items = new HashMap<>( );
+        Map<String, Float> items = new HashMap<>();
         List<String> itemIDS = requestCoupon.getItemIDS();
         for (String itemID : itemIDS) {
             Float itemPrice = itemPriceImpDelegate.getItemPriceItem(itemID);
@@ -47,11 +54,11 @@ public class CouponServiceImp implements CouponService {
             item.forEach(y -> {
                 total1[0] = total1[0] + items.get(y);
             });
-            aux.put(total1[0],item1);
+            aux.put(total1[0], item1);
             itemsCopy.remove(key);
         });
-        Float maxValueInMap=(Collections.max(aux.keySet()));
-        List<String> item1 =aux.get(maxValueInMap);
+        Float maxValueInMap = (Collections.max(aux.keySet()));
+        List<String> item1 = aux.get(maxValueInMap);
         System.out.println("VALOR TOTAL");
         System.out.println(maxValueInMap);
         System.out.println("ITEMS NUEVA LISTA");
@@ -70,7 +77,7 @@ public class CouponServiceImp implements CouponService {
         List<String> itemFilter = new ArrayList<>();
         final int[] valorAux = {0};
         itemProducts.entrySet().stream().filter(x -> {
-            System.out.println("VALOR DEL MAPA ORDENADO: "+ x.getValue());
+            System.out.println("VALOR DEL MAPA ORDENADO: " + x.getValue());
             int v = (int) (x.getValue() + valorAux[0]);
             if (v <= amount) {
                 valorAux[0] = v;
@@ -81,13 +88,6 @@ public class CouponServiceImp implements CouponService {
         }).forEach(System.out::println);
         itemProducts.entrySet().forEach(System.out::println);
         return itemFilter;
-    }
-
-    public static Map < String, Float > sortedMap ( final Map < String, Float > items ) {
-        return items.entrySet ( )
-                .stream ( )
-                .sorted ( Map.Entry. < String, Float > comparingByValue ( ) )
-                .collect ( Collectors.toMap ( Map.Entry::getKey, Map.Entry::getValue, ( e1, e2 ) -> e1, LinkedHashMap::new ) );
     }
 
 }
