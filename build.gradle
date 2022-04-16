@@ -52,7 +52,14 @@ jacocoTestReport {
         xml.required = false
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        "com/co/meli/coupon/dto/BodyCoupon.*"
+                ])
+            }))
     }
+}
 }
 jacocoTestCoverageVerification {
     violationRules {
@@ -64,7 +71,7 @@ jacocoTestCoverageVerification {
                 minimum = 0.85
             }
             excludes = [
-                    'com.co.meli.coupon.dto.*',
+                    'com.co.meli.coupon.dto.BodyCoupon',
                     ' com.co.meli.coupon.CouponApplication'
             ]
         }
