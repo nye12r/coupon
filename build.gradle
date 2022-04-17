@@ -44,23 +44,19 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 test {
+    exclude("com/co/meli/coupon/dto/BodyCoupon..class",
+            'com/co/meli/coupon/CouponApplication.class',
+            'com.co.meli.coupon.dto.BodyCoupon',
+            'com.co.meli.coupon.CouponApplication')
     finalizedBy jacocoTestReport // report is always generated after tests run
-}
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
 }
 jacocoTestReport {
     reports {
         xml.required = false
         csv.required = false
+        html.required=true
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-        afterEvaluate {
-            classDirectories.setFrom(files(classDirectories.files.collect {
-                fileTree(dir: it, exclude: [
-                        "com/co/meli/coupon/dto/BodyCoupon.*"
-                ])
-            }))
-        }
+
     }
 }
 jacocoTestCoverageVerification {
@@ -73,8 +69,11 @@ jacocoTestCoverageVerification {
                 minimum = 0.85
             }
             excludes = [
-                    'com.co.meli.coupon.dto.BodyCoupon',
-                    ' com.co.meli.coupon.CouponApplication'
+                    "com/co/meli/coupon/dto/BodyCoupon.class",
+                    'com/co/meli/coupon/CouponApplication.class',
+                    "com/co/meli/coupon/dto/**",
+                    'com.co.meli.coupon.dto.BodyCoupon.class',
+                    'com.co.meli.coupon.CouponApplication.class'
             ]
         }
     }
