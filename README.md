@@ -9,7 +9,8 @@
 * para el manejo de dependencias se utiliza gradle
 * La jdk selecionada es OpenJDK-11
 * Ide de Desarrollo IntelliJ IDEA 2021.3.3 A list of frequently asked questions
-*Url swagger http://localhost:8080/swagger-ui/index.html#/
+  *Url swagger http://localhost:8080/swagger-ui/index.html#/
+
 1. **This is a question in bold**
    Answer of the first question with _italic words_.
 2. __Second question in bold__

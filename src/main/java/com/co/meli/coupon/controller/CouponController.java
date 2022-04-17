@@ -2,11 +2,9 @@ package com.co.meli.coupon.controller;
 
 import com.co.meli.coupon.dto.BodyCoupon;
 import com.co.meli.coupon.service.CouponService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

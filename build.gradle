@@ -34,7 +34,6 @@ dependencies {
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
 
-
 }
 jacoco {
     toolVersion = "0.8.7"
@@ -44,17 +43,34 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 test {
-    exclude("com/co/meli/coupon/dto/BodyCoupon..class",
+    exclude("com/co/meli/coupon/dto/BodyCoupon.class",
             'com/co/meli/coupon/CouponApplication.class',
-            'com.co.meli.coupon.dto.BodyCoupon',
-            'com.co.meli.coupon.CouponApplication')
+            "com/co/meli/coupon/dto/**",
+            'com.co.meli.coupon.dto.BodyCoupon.class',
+            'com.co.meli.coupon.CouponApplication.class')
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 jacocoTestReport {
+    executionData("com/co/meli/coupon/dto/BodyCoupon.class",
+            'com/co/meli/coupon/CouponApplication.class',
+            "com/co/meli/coupon/dto/**",
+            'com.co.meli.coupon.dto.BodyCoupon.class',
+            'com.co.meli.coupon.CouponApplication.class')
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/co/meli/coupon/dto/BodyCoupon.class",
+                    'com/co/meli/coupon/CouponApplication.class',
+                    "com/co/meli/coupon/dto/**",
+                    'com.co.meli.coupon.dto.BodyCoupon.class',
+                    'com.co.meli.coupon.CouponApplication.class'
+            ])
+        }))
+    }
     reports {
         xml.required = false
         csv.required = false
-        html.required=true
+        html.required = true
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
 
     }
