@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.co.meli'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -28,9 +28,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.json:json:20220320'
-    //  implementation 'org.jacoco:jacoco-maven-plugin:0.8.8'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
 
 
 }
@@ -58,8 +60,8 @@ jacocoTestReport {
                         "com/co/meli/coupon/dto/BodyCoupon.*"
                 ])
             }))
+        }
     }
-}
 }
 jacocoTestCoverageVerification {
     violationRules {
